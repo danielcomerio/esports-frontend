@@ -200,7 +200,7 @@
         }
 
         function postPedido() {
-            let pedido = [];
+            let valor = 0.0;
 
             let fornecedor = '';
             let produto = '';
@@ -217,25 +217,29 @@
                 quantidade = $(cols[2]).html();
                 preco = $(cols[3]).html();
 
-                pedido.push(
-                    {
-                        "fornecedor": fornecedor,
-                        "produto": nome,
-                        "quantidade": quantidade,
-                        "preco": preco
-                    }
-                );
+                valor += parseInt(quantidade) * parseFloat(preco);
+            }
+            let dateNow = new Date().toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+            let nomePedido = fornecedor + ' - ' + dateNow;
+            let dataCriacao = dateNow;
+
+            let pedido = {
+                "fornecedor": fornecedor,
+                "nomePedido": nomePedido,
+                "valor": valor.toFixed(2),
+                "dataCriacao": dataCriacao
             }
 
             // REQUISIÇÃO PARA O BACKEND
             $.ajax({
                 type: "POST",
-                url: "/pedidoFornecedor",
+                url: "https://esportes-backend.herokuapp.com/pedidoPedente",
                 data: { "pedido": pedido },
                 dataType: "json",
                 success: function (success) {
                     alert("Pedido criado com sucesso.");
                     $('#bodyPedido').html('');
+                    getPedidosPendentes();
                 },
                 failure: function (errMsg) {
                     alert("Falha ao criar o pedido.");
@@ -295,7 +299,7 @@
             // REQUISIÇÃO PARA O BACKEND
             $.ajax({
                 type: "GET",
-                url: "/pedidosPendentes",
+                url: "https://esportes-backend.herokuapp.com/pedidosPendentes",
                 data: {},
                 dataType: "json",
                 success: function (pedidos) {
@@ -311,7 +315,7 @@
             // REQUISIÇÃO PARA O BACKEND
             $.ajax({
                 type: "GET",
-                url: "/pedidosEmAndamento",
+                url: "https://esportes-backend.herokuapp.com/pedidosEmAndamento",
                 data: {},
                 dataType: "json",
                 success: function (pedidos) {
@@ -327,7 +331,7 @@
             // REQUISIÇÃO PARA O BACKEND
             $.ajax({
                 type: "GET",
-                url: "/pedidosFinalizados",
+                url: "https://esportes-backend.herokuapp.com/pedidosFinalizados",
                 data: {},
                 dataType: "json",
                 success: function (pedidos) {

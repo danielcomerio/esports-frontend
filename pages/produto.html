@@ -55,8 +55,8 @@
 
             // REQUISIÇÃO PARA O BACKEND
             $.ajax({
-                type: "POST",
-                url: "/produto",
+                type: "GET",
+                url: "https://esportes-backend.herokuapp.com/produto",
                 data: { "id": idProduct },
                 dataType: "json",
                 success: function (product) {
