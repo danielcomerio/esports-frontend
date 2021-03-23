@@ -16,7 +16,7 @@ app.get('/', function (req, res) {
 });
 
 // add other routes below
-app.get('/cadastro.html', function (req, res) {
+app.get('/cadastro', function (req, res) {
     res.redirect(pat + 'pages/cadastro.html');
 });
 app.get('/carrinho', function (req, res) {
