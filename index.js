@@ -17,7 +17,7 @@ const server = http.createServer((req, res) => {
 var pat = 'https://esportes-frontend.herokuapp.com/';
 // add other routes below
 app.get('/cadastro', function (req, res) {
-    res.redirect('/cadastro.html');
+    res.sendFile(path.join(__dirname + 'pages/cadastro.html'));
 });
 app.get('/carrinho', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/carrinho.html'));
