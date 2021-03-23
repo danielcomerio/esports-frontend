@@ -14,10 +14,10 @@ const server = http.createServer((req, res) => {
     fs.createReadStream('pages/home.html').pipe(res)
 })
 
-
+var pat = 'https://esportes-frontend.herokuapp.com/';
 // add other routes below
 app.get('/cadastro.html', function (req, res) {
-    res.sendFile(path.join(__dirname + 'pages/cadastro.html'));
+    res.sendFile(path.join(pat + 'pages/cadastro.html'));
 });
 app.get('/carrinho', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/carrinho.html'));
