@@ -148,7 +148,6 @@
             }
 
             else {
-                console.log('início');
                 // REQUISIÇÃO PARA O BACKEND
                 $.ajax({
                     type: "POST",
@@ -156,32 +155,24 @@
                     data: { "email": username, "senha": password },
                     dataType: "json",
                     success: function ({ message }) {
-                        console.log('success');
-                        console.log(message);
-
                         switch (message) {
                             case 'cliente':
-                                console.log('cliente');
                                 sessionStorage.setItem('status', 'loggedIn')
                                 window.location.href = "home.html";
                                 break;
                             case 'admin':
-                                console.log('admin');
                                 sessionStorage.setItem('status', 'loggedIn')
                                 window.location.href = "gerenciador-de-estoque.html";
                                 break;
                             default:
-                                console.log('default');
                                 alert("Login inválido.");
                                 break;
                         }
                     },
                     failure: function (errMsg) {
-                        console.log('failure');
                         alert("Login inválido.");
                     }
                 });
-                console.log('fim');
             }
         }
     </script>
