@@ -12,7 +12,7 @@ var pat = 'https://esportes-frontend.herokuapp.com/';
 
 // viewed at based directory http://localhost:8080/
 app.get('/', function (req, res) {
-    res.sendFile(path.join(pat + 'pages/home.html'));
+    res.redirect(pat + 'pages/home.html');
 });
 
 // add other routes below
