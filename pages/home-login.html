@@ -142,8 +142,6 @@
         function login() {
             var username = $("#username").val();
             var password = $("#password").val();
-            console.log(username);
-            console.log(password);
 
             if (username == '' && password == '') {
                 alert('Favor preencher os campos corretamente.')
@@ -157,21 +155,28 @@
                     data: { "email": username, "senha": password },
                     dataType: "json",
                     success: function (message) {
+                        console.log('success');
+                        console.log(message);
+
                         switch (message) {
                             case 'cliente':
+                                console.log('cliente');
                                 sessionStorage.setItem('status', 'loggedIn')
                                 window.location.href = "home.html";
                                 break;
                             case 'admin':
+                                console.log('admin');
                                 sessionStorage.setItem('status', 'loggedIn')
                                 window.location.href = "gerenciador-de-estoque.html";
                                 break;
                             default:
+                                console.log('default');
                                 alert("Login inválido.");
                                 break;
                         }
                     },
                     failure: function (errMsg) {
+                        console.log('failure');
                         alert("Login inválido.");
                     }
                 });
