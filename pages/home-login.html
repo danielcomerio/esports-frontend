@@ -157,19 +157,21 @@
                     data: { "email": username, "senha": password },
                     dataType: "json",
                     success: function (message) {
-                        console.log('message');
-                        alert(message);
-                        sessionStorage.setItem('status', 'loggedIn')
-                        if (message == 'cliente') {
-                            window.location.href = "home.html";
-                        }
-                        else {
-                            window.location.href = "gerenciador-de-estoque.html";
+                        switch (message) {
+                            case 'cliente':
+                                sessionStorage.setItem('status', 'loggedIn')
+                                window.location.href = "home.html";
+                                break;
+                            case 'admin':
+                                sessionStorage.setItem('status', 'loggedIn')
+                                window.location.href = "gerenciador-de-estoque.html";
+                                break;
+                            default:
+                                alert("Login inválido.");
+                                break;
                         }
                     },
                     failure: function (errMsg) {
-                        console.log('errMsg');
-                        alert(errMsg);
                         alert("Login inválido.");
                     }
                 });
