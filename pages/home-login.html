@@ -158,7 +158,7 @@
                     dataType: "json",
                     success: function (message) {
                         console.log('message');
-                        console.log(message);
+                        alert(message);
                         sessionStorage.setItem('status', 'loggedIn')
                         if (message == 'cliente') {
                             window.location.href = "home.html";
@@ -169,7 +169,7 @@
                     },
                     failure: function (errMsg) {
                         console.log('errMsg');
-                        console.log(errMsg);
+                        alert(errMsg);
                         alert("Login inválido.");
                     }
                 });
