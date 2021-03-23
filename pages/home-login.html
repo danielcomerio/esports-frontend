@@ -153,7 +153,7 @@
                 // REQUISIÇÃO PARA O BACKEND
                 $.ajax({
                     type: "POST",
-                    url: "https://esportes-backend.herokuapp.com/login",
+                    url: "http://localhost:8080/login",
                     data: { "email": username, "senha": password },
                     dataType: "json",
                     success: function (message) {
