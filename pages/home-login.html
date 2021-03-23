@@ -153,10 +153,12 @@
                 // REQUISIÇÃO PARA O BACKEND
                 $.ajax({
                     type: "POST",
-                    url: "https://esportes-backend.herokuapp.com//login",
+                    url: "https:/esportes-backend.herokuapp.com/login",
                     data: { "email": username, "senha": password },
                     dataType: "json",
                     success: function (message) {
+                        console.log('message');
+                        console.log(message);
                         sessionStorage.setItem('status', 'loggedIn')
                         if (message == 'cliente') {
                             window.location.href = "home.html";
@@ -166,6 +168,8 @@
                         }
                     },
                     failure: function (errMsg) {
+                        console.log('errMsg');
+                        console.log(errMsg);
                         alert("Login inválido.");
                     }
                 });
