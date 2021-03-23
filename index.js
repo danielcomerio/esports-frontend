@@ -9,11 +9,13 @@ app.use("/scripts", express.static(__dirname + '/scripts'));
 
 // viewed at based directory http://localhost:8080/
 app.get('/', function (req, res) {
+    console.log(path.join(__dirname + 'pages/home.html'));
     res.sendFile(path.join(__dirname + 'pages/home.html'));
 });
 
 // add other routes below
 app.get('/cadastro.html', function (req, res) {
+    console.log(path.join(__dirname + 'pages/cadastro.html'));
     res.sendFile(path.join(__dirname + 'pages/cadastro.html'));
 });
 app.get('/carrinho.html', function (req, res) {
