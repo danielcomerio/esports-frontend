@@ -150,11 +150,10 @@
             }
 
             else {
-                const url = "https://esportes-backend.herokuapp.com/login";
                 // REQUISIÇÃO PARA O BACKEND
                 $.ajax({
                     type: "POST",
-                    url: url,
+                    url: "https://esportes-backend.herokuapp.com/login",
                     data: { "email": username, "senha": password },
                     dataType: "json",
                     success: function (message) {
