@@ -8,16 +8,16 @@ console.log(path.join(__dirname + 'pages/home.html'));
 
 const http = require('http')
 const fs = require('fs')
-
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'content-type': 'text/html' })
-    fs.createReadStream('pages/home.html').pipe(res)
-})
-
 var pat = 'https://esportes-frontend.herokuapp.com/';
+
+// viewed at based directory http://localhost:8080/
+app.get('/', function (req, res) {
+    res.sendFile(path.join(pat + 'pages/home.html'));
+});
+
 // add other routes below
 app.get('/cadastro.html', function (req, res) {
-    res.sendFile(path.join(pat + 'pages/cadastro.html'));
+    res.redirect(pat + 'pages/cadastro.html');
 });
 app.get('/carrinho', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/carrinho.html'));
