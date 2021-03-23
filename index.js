@@ -13,45 +13,45 @@ app.get('/', function (req, res) {
 });
 
 // add other routes below
-app.get('/cadastro', function (req, res) {
+app.get('/cadastro.html', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/cadastro.html'));
 });
-app.get('/carrinho', function (req, res) {
+app.get('/carrinho.html', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/carrinho.html'));
 });
-app.get('/configuracoes', function (req, res) {
+app.get('/configuracoes.html', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/configuracoes.html'));
 });
-app.get('/gerenciador-de-estoque', function (req, res) {
+app.get('/gerenciador-de-estoque.html', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/gerenciador-de-estoque.html'));
-}); app.get('/gerenciador-de-pedidos', function (req, res) {
+}); app.get('/gerenciador-de-pedidos.html', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/gerenciador-de-pedidos.html'));
 });
-app.get('/home-login', function (req, res) {
+app.get('/home-login.html', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/home-login.html'));
 });
-app.get('/lista-produto-calcados', function (req, res) {
+app.get('/lista-produto-calcados.html', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/lista-produto-calcados.html'));
 });
-app.get('/lista-produto-equipamentos', function (req, res) {
+app.get('/lista-produto-equipamentos.html', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/lista-produto-equipamentos.html'));
 });
-app.get('/lista-produto-feminino', function (req, res) {
+app.get('/lista-produto-feminino.html', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/lista-produto-feminino.html'));
 });
-app.get('/lista-produto-infantil', function (req, res) {
+app.get('/lista-produto-infantil.html', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/lista-produto-infantil.html'));
 });
-app.get('/lista-produto-masculino', function (req, res) {
+app.get('/lista-produto-masculino.html', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/lista-produto-masculino.html'));
 });
-app.get('/lista-produto-roupas', function (req, res) {
+app.get('/lista-produto-roupas.html', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/lista-produto-roupas.html'));
 });
-app.get('/pagamento', function (req, res) {
+app.get('/pagamento.html', function (req, res) {
     res.sendFile(path.join(__dirname + 'pages/pagamento.html'));
 });
-app.get('/produto', function (req, res) {
+app.get('/produto.html', function (req, res) {
     res.sendFile(path.join(__dirname + 'produto/home.html'));
 });
 
