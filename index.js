@@ -10,13 +10,13 @@ const http = require('http')
 const fs = require('fs')
 var pat = 'https://esportes-frontend.herokuapp.com/';
 
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'content-type': 'text/html' })
-    fs.createReadStream('pages/home.html').pipe(res)
-})
+// viewed at based directory http://localhost:8080/
+app.get('/', function (req, res) {
+    res.sendFile(path.join(pat + 'pages/home.html'));
+});
 
 // add other routes below
-app.get('/cadastro.html', function (req, res) {
+app.get('/cadastro', function (req, res) {
     res.redirect(pat + 'pages/cadastro.html');
 });
 app.get('/carrinho', function (req, res) {
