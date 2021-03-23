@@ -1,3 +1,11 @@
+var express = require('express');
+var app = express();
+var path = require('path');
+
+app.use(express.static(path.join(__dirname)));
+console.log(path.join(__dirname + 'pages/home.html'));
+
+
 const http = require('http')
 const fs = require('fs')
 
