@@ -148,7 +148,7 @@
             $('#tbEstoque').append(`
                 <tr>
                     <td>` + product['nome'] + `</td>
-                    <td>` + product['preco'] + `</td>
+                    <td>` + product['preco'].toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) + `</td>
                     <td>` + product['qntdMax'] + `</td>
                     <td>` + product['qntdMin'] + `</td>
                     <td>` + product['dataInicial'] + `</td>
