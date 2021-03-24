@@ -361,8 +361,8 @@
             // REQUISIÇÃO PARA O BACKEND
             $.ajax({
                 type: "GET",
-                url: "https://esportes-backend.herokuapp.com/fornecedorProdutos",
-                data: { 'fornecedor': fornecedor },
+                url: "https://esportes-backend.herokuapp.com/fornecedorProdutos/" + fornecedor,
+                data: {},
                 dataType: "json",
                 success: function (produtos) {
                     insertOptions(produtos, '#selectProduto');

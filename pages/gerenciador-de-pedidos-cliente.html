@@ -126,9 +126,9 @@
                 url: "https://esportes-backend.herokuapp.com/pedidosCliente",
                 data: {},
                 dataType: "json",
-                success: function (estoque) {
+                success: function (pedidos) {
                     for (let i = 0; i < pedidos.length; i++) {
-                        insertLineProduct(estoque[i]);
+                        insertLineProduct(pedidos[i]);
                     }
                 },
                 error: function (errMsg) {
