@@ -56,8 +56,8 @@
             // REQUISIÇÃO PARA O BACKEND
             $.ajax({
                 type: "GET",
-                url: "https://esportes-backend.herokuapp.com/produto",
-                data: { "id": idProduct },
+                url: "https://esportes-backend.herokuapp.com/produto/" + idProduct,
+                data: {},
                 dataType: "json",
                 success: function (product) {
                     insertProduct(product);
@@ -99,7 +99,7 @@
 
         function insertProduct(product) {
             let img = product['img'];
-            let name = product['produto'];
+            let name = product['nome'];
             let description = product['descricao'];
             let price = product['preco'];
 

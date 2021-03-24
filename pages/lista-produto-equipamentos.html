@@ -61,19 +61,19 @@
         function insertProduct(products) {
             while (products.length > 0) {
                 if (products.length >= 3) {
-                    let id1 = products[0]['id'];
+                    let id1 = products[0]['_id'];
                     let img1 = products[0]['img'];
                     let name1 = products[0]['nome'];
                     let description1 = products[0]['descricao'];
                     let price1 = products[0]['preco'];
 
-                    let id2 = products[1]['id'];
+                    let id2 = products[1]['_id'];
                     let img2 = products[1]['img'];
                     let name2 = products[1]['nome'];
                     let description2 = products[1]['descricao'];
                     let price2 = products[1]['preco'];
 
-                    let id3 = products[2]['id'];
+                    let id3 = products[2]['_id'];
                     let img3 = products[2]['img'];
                     let name3 = products[2]['nome'];
                     let description3 = products[2]['descricao'];
@@ -132,13 +132,13 @@
                 }
 
                 if (products.length == 2) {
-                    let id1 = products[0]['id'];
+                    let id1 = products[0]['_id'];
                     let img1 = products[0]['img'];
                     let name1 = products[0]['nome'];
                     let description1 = products[0]['descricao'];
                     let price1 = products[0]['preco'];
 
-                    let id2 = products[1]['id'];
+                    let id2 = products[1]['_id'];
                     let img2 = products[1]['img'];
                     let name2 = products[1]['nome'];
                     let description2 = products[1]['descricao'];
@@ -182,7 +182,7 @@
                 }
 
                 if (products.length == 1) {
-                    let id1 = products[0]['id'];
+                    let id1 = products[0]['_id'];
                     let img1 = products[0]['img'];
                     let name1 = products[0]['nome'];
                     let description1 = products[0]['descricao'];
@@ -215,7 +215,7 @@
         }
 
         function goToProduct(product) {
-            window.location.href = "produto.html?produto=" + $(product.target).attr('id');
+            window.location.href = "produto.html?id=" + $(product.target).attr('id');
         }
     </script>
     </script>
