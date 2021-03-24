@@ -127,7 +127,7 @@
                 data: {},
                 dataType: "json",
                 success: function (estoque) {
-                    for (let i = 0; i < pedidos.length; i++) {
+                    for (let i = 0; i < estoque.length; i++) {
                         insertLineProduct(estoque[i]);
                     }
                 },
