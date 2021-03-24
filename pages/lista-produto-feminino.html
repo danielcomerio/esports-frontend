@@ -52,7 +52,7 @@
                 success: function (products) {
                     insertProduct(products);
                 },
-                failure: function (errMsg) {
+                error: function (errMsg) {
                     alert("Falha no carregamento dos produtos.");
                 }
             });

@@ -157,11 +157,11 @@
                     success: function ({ message }) {
                         switch (message) {
                             case 'cliente':
-                                sessionStorage.setItem('status', 'loggedIn')
+                                sessionStorage.setItem('status', username)
                                 window.location.href = "home.html";
                                 break;
                             case 'admin':
-                                sessionStorage.setItem('status', 'loggedIn')
+                                sessionStorage.setItem('status', username)
                                 window.location.href = "gerenciador-de-estoque.html";
                                 break;
                             default:
@@ -169,7 +169,7 @@
                                 break;
                         }
                     },
-                    failure: function (errMsg) {
+                    error: function (errMsg) {
                         alert("Login inválido.");
                     }
                 });

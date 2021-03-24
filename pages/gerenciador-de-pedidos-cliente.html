@@ -123,7 +123,7 @@
             // REQUISIÇÃO PARA O BACKEND
             $.ajax({
                 type: "GET",
-                url: "https://esportes-backend.herokuapp.com/produtos",
+                url: "https://esportes-backend.herokuapp.com/pedidosCliente",
                 data: {},
                 dataType: "json",
                 success: function (estoque) {
@@ -132,7 +132,7 @@
                     }
                 },
                 error: function (errMsg) {
-                    //alert("Falha no carregamento do estoque.");
+                    //alert("Falha no carregamento de pedidos dos clientes.");
                 }
             });
         });
@@ -145,15 +145,11 @@
 
         function insertLineProduct(product) {
             //<td>` + product['id'] + `</td>
-            $('#tbEstoque').append(`
+            $('#tbClientePedido').append(`
                 <tr>
-                    <td>` + product['nome'] + `</td>
-                    <td>` + product['preco'] + `</td>
-                    <td>` + product['qntdMax'] + `</td>
-                    <td>` + product['qntdMin'] + `</td>
-                    <td>` + product['dataInicial'] + `</td>
-                    <td>` + product['dataFinal'] + `</td>
-                    <td>` + product['dataDescont'] + `</td>
+                    <td>` + product['email'] + `</td>
+                    <td>` + product['valor'].toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) + `</td>
+                    <td>` + product['dataPedido'] + `</td>
                 </tr>
             `);
         }
@@ -163,11 +159,12 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li style="margin-left: -30px;" class="active"><a href="gerenciador-de-estoque.html">Gerenciador de
+                    <li style="margin-left: -30px;"><a href="gerenciador-de-estoque.html">Gerenciador de
                             Estoque</a>
                     </li>
                     <li><a href="gerenciador-de-pedidos.html">Gerenciador de Pedidos de Fornecedores</a></li>
-                    <li><a href="gerenciador-de-pedidos-cliente.html">Gerenciador de Pedidos de Clientes</a></li>
+                    <li class="active"><a href="gerenciador-de-pedidos-cliente.html">Gerenciador de Pedidos de
+                            Clientes</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li id="login"></li>
@@ -198,7 +195,7 @@
             <div class="panel panel-primary filterable">
                 <div class="panel-heading">
                     <div style="float: left;">
-                        <span class="titleFormat">Controle de Estoque</span>
+                        <span class="titleFormat">Controle de Pedidos de Clientes</span>
                     </div>
                     <div style="float: right;"><button class="btn btn-light btn-filter">Filtrar</button></div>
                     <div style="clear: both;"></div>
@@ -206,25 +203,17 @@
                 <table class="table table-hover" style="margin: 0;">
                     <thead>
                         <tr class="filters">
-                            <th style="width: 26%;"><input type="text" class="form-control" placeholder="Produto"
+                            <th style="width: 60%;"><input type="text" class="form-control"
+                                    placeholder="E-mail do Cliente" disabled>
+                            </th>
+                            <th style="width: 20%;"><input type="text" class="form-control" placeholder="Valor"
                                     disabled>
                             </th>
-                            <th style="width: 11%;"><input type="text" class="form-control" placeholder="Preço"
-                                    disabled>
-                            </th>
-                            <th style="width: 12%;"><input type="text" class="form-control" placeholder="Estoque atual"
+                            <th style="width: 20%;"><input type="text" class="form-control" placeholder="Data do pedido"
                                     disabled></th>
-                            <th style="width: 14%;"><input type="text" class="form-control" placeholder="Estoque mínimo"
-                                    disabled></th>
-                            <th style="width: 10%;"><input type="text" class="form-control" placeholder="Data inicial"
-                                    disabled></th>
-                            <th style="width: 10%;"><input type="text" class="form-control" placeholder="Data final"
-                                    disabled></th>
-                            <th style="width: 15%;"><input type="text" class="form-control"
-                                    placeholder="Data descontinuação" disabled></th>
                         </tr>
                     </thead>
-                    <tbody id="tbEstoque"></tbody>
+                    <tbody id="tbClientePedido"></tbody>
                 </table>
             </div>
         </div>

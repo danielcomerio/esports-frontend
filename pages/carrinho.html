@@ -129,6 +129,24 @@
         }
 
         function postPedido() {
+            // REQUISIÇÃO PARA O BACKEND
+            $.ajax({
+                type: "POST",
+                url: "https://esportes-backend.herokuapp.com/pedidoCliente",
+                data: {
+                    "email": sessionStorage.getItem('status'),
+                    "valor": $('#total').html().replace(",", "."),
+                    "dataPedido": new Date().toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+                },
+                dataType: "json",
+                success: function (success) {
+                },
+                error: function (errMsg) {
+                }
+            });
+        }
+
+        function postPedidoReserva() {
             let pedido = [];
 
             let name = '';
@@ -159,7 +177,7 @@
                 dataType: "json",
                 success: function (success) {
                 },
-                failure: function (errMsg) {
+                error: function (errMsg) {
                 }
             });
         }

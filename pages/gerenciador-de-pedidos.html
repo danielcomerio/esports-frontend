@@ -241,7 +241,7 @@
                     $('#bodyPedido').html('');
                     getPedidosPendentes();
                 },
-                failure: function (errMsg) {
+                error: function (errMsg) {
                     alert("Falha ao criar o pedido.");
                 }
             });
@@ -252,7 +252,6 @@
                 for (let i = 0; i < pedidos.length; i++) {
                     $('#pedidoPendente').append(`
                         <tr>
-                            <td>` + pedidos[i]['id'] + `</td>
                             <td>` + pedidos[i]['fornecedor'] + `</td>
                             <td>` + pedidos[i]['nomePedido'] + `</td>
                             <td>` + pedidos[i]['valor'] + `</td>
@@ -266,7 +265,6 @@
                 for (let i = 0; i < pedidos.length; i++) {
                     $('#pedidoEmAndamento').append(`
                         <tr>
-                            <td>` + pedidos[i]['id'] + `</td>
                             <td>` + pedidos[i]['fornecedor'] + `</td>
                             <td>` + pedidos[i]['nomePedido'] + `</td>
                             <td>` + pedidos[i]['valor'] + `</td>
@@ -281,7 +279,6 @@
                 for (let i = 0; i < pedidos.length; i++) {
                     $('#pedidoFinalizado').append(`
                         <tr>
-                            <td>` + pedidos[i]['id'] + `</td>
                             <td>` + pedidos[i]['fornecedor'] + `</td>
                             <td>` + pedidos[i]['nomePedido'] + `</td>
                             <td>` + pedidos[i]['valor'] + `</td>
@@ -305,8 +302,8 @@
                 success: function (pedidos) {
                     insertRowPedido(pedidos, 'pendente');
                 },
-                failure: function (errMsg) {
-                    alert("Falha no carregamento dos pedidos.");
+                error: function (errMsg) {
+                    //alert("Falha no carregamento dos pedidos.");
                 }
             });
         }
@@ -321,8 +318,8 @@
                 success: function (pedidos) {
                     insertRowPedido(pedidos, 'emAndamento');
                 },
-                failure: function (errMsg) {
-                    alert("Falha no carregamento dos pedidos.");
+                error: function (errMsg) {
+                    //alert("Falha no carregamento dos pedidos.");
                 }
             });
         }
@@ -337,10 +334,55 @@
                 success: function (pedidos) {
                     insertRowPedido(pedidos, 'finalizado');
                 },
-                failure: function (errMsg) {
-                    alert("Falha no carregamento dos pedidos.");
+                error: function (errMsg) {
+                    //alert("Falha no carregamento dos pedidos.");
                 }
             });
+        }
+
+        function getFornecedores() {
+            // REQUISIÇÃO PARA O BACKEND
+            $.ajax({
+                type: "GET",
+                url: "https://esportes-backend.herokuapp.com/fornecedores",
+                data: {},
+                dataType: "json",
+                success: function (fornecedores) {
+                    insertOptions(fornecedores, '#selectFornecedor');
+                },
+                error: function (errMsg) {
+                    //alert("Falha no carregamento dos pedidos.");
+                }
+            });
+        }
+
+        function getFornecedorProdutos() {
+            let fornecedor = $('#selectFornecedor option:selected').text();
+            // REQUISIÇÃO PARA O BACKEND
+            $.ajax({
+                type: "GET",
+                url: "https://esportes-backend.herokuapp.com/fornecedorProdutos",
+                data: { 'fornecedor': fornecedor },
+                dataType: "json",
+                success: function (produtos) {
+                    insertOptions(produtos, '#selectProduto');
+                },
+                error: function (errMsg) {
+                    //alert("Falha no carregamento dos pedidos.");
+                }
+            });
+        }
+
+        function insertOptions(options, id) {
+            if (id == '#selectFornecedor') {
+                for (let i = 0; i < options.length; i++) {
+                    $(id).append('<option class="selectOption" onclick="delTablePedido()">' + options[i] + '</option>')
+                }
+            } else {
+                for (let i = 0; i < options.length; i++) {
+                    $(id).append('<option class="selectOption">' + options[i] + '</option>')
+                }
+            }
         }
     </script>
 
@@ -353,7 +395,9 @@
                 <ul class="nav navbar-nav">
                     <li style="margin-left: -30px;"><a href="gerenciador-de-estoque.html">Gerenciador de Estoque</a>
                     </li>
-                    <li class="active"><a href="gerenciador-de-pedidos.html">Gerenciador de Pedidos</a></li>
+                    <li class="active"><a href="gerenciador-de-pedidos.html">Gerenciador de Pedidos de Fornecedores</a>
+                    </li>
+                    <li><a href="gerenciador-de-pedidos-cliente.html">Gerenciador de Pedidos de Clientes</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li id="login"></li>
@@ -394,18 +438,12 @@
                     <div style="float: left; margin-right: 30px;">
                         <select id="selectFornecedor" class="selectClass">
                             <option class="selectOption" style="display: none;" selected>Fornecedor</option>
-                            <option class="selectOption">Dudalina</option>
-                            <option class="selectOption">Lacoste</option>
-                            <option class="selectOption">Individual</option>
                         </select>
                     </div>
 
                     <div style="float: left; margin-right: 30px;">
                         <select id="selectProduto" class="selectClass">
                             <option class="selectOption" style="display: none;" selected>Produto</option>
-                            <option class="selectOption">Camisa regata</option>
-                            <option class="selectOption">Blusa de frio</option>
-                            <option class="selectOption">Bermuda fitness</option>
                         </select>
                     </div>
 
@@ -485,18 +523,15 @@
                             <table class="table table-hover" style="margin: 0; min-width: 82vw">
                                 <thead>
                                     <tr class="filters">
-                                        <th style="width: 5%;"><input type="text" class="form-control" placeholder="ID"
-                                                disabled>
-                                        </th>
-                                        <th style="width: 37%;"><input type="text" class="form-control"
+                                        <th style="width: 39%;"><input type="text" class="form-control"
                                                 placeholder="Fornecedor" disabled>
                                         </th>
-                                        <th style="width: 32%;"><input type="text" class="form-control"
+                                        <th style="width: 33%;"><input type="text" class="form-control"
                                                 placeholder="Pedido" disabled>
                                         </th>
-                                        <th style="width: 12%;"><input type="text" class="form-control"
+                                        <th style="width: 13%;"><input type="text" class="form-control"
                                                 placeholder="Valor" disabled></th>
-                                        <th style="width: 14%;"><input type="text" class="form-control"
+                                        <th style="width: 15%;"><input type="text" class="form-control"
                                                 placeholder="Data de criação" disabled></th>
                                     </tr>
                                 </thead>
@@ -524,20 +559,17 @@
                             <table class="table table-hover" style="margin: 0; min-width: 82vw">
                                 <thead>
                                     <tr class="filters">
-                                        <th style="width: 5%;"><input type="text" class="form-control" placeholder="ID"
-                                                disabled>
-                                        </th>
-                                        <th style="width: 30%;"><input type="text" class="form-control"
+                                        <th style="width: 31%;"><input type="text" class="form-control"
                                                 placeholder="Fornecedor" disabled>
                                         </th>
-                                        <th style="width: 25%;"><input type="text" class="form-control"
+                                        <th style="width: 27%;"><input type="text" class="form-control"
                                                 placeholder="Pedido" disabled>
                                         </th>
-                                        <th style="width: 12%;"><input type="text" class="form-control"
+                                        <th style="width: 13%;"><input type="text" class="form-control"
                                                 placeholder="Valor" disabled></th>
-                                        <th style="width: 14%;"><input type="text" class="form-control"
+                                        <th style="width: 15%;"><input type="text" class="form-control"
                                                 placeholder="Data do pedido" disabled></th>
-                                        <th style="width: 14%;"><input type="text" class="form-control"
+                                        <th style="width: 15%;"><input type="text" class="form-control"
                                                 placeholder="Previsão de chegada" disabled></th>
                                     </tr>
                                 </thead>
@@ -565,20 +597,17 @@
                             <table class="table table-hover" style="margin: 0; min-width: 82vw">
                                 <thead>
                                     <tr class="filters">
-                                        <th style="width: 5%;"><input type="text" class="form-control" placeholder="ID"
-                                                disabled>
-                                        </th>
-                                        <th style="width: 30%;"><input type="text" class="form-control"
+                                        <th style="width: 31%;"><input type="text" class="form-control"
                                                 placeholder="Fornecedor" disabled>
                                         </th>
-                                        <th style="width: 25%;"><input type="text" class="form-control"
+                                        <th style="width: 26%;"><input type="text" class="form-control"
                                                 placeholder="Pedido" disabled>
                                         </th>
-                                        <th style="width: 12%;"><input type="text" class="form-control"
+                                        <th style="width: 13%;"><input type="text" class="form-control"
                                                 placeholder="Valor" disabled></th>
-                                        <th style="width: 14%;"><input type="text" class="form-control"
+                                        <th style="width: 15%;"><input type="text" class="form-control"
                                                 placeholder="Data do pedido" disabled></th>
-                                        <th style="width: 14%;"><input type="text" class="form-control"
+                                        <th style="width: 15%;"><input type="text" class="form-control"
                                                 placeholder="Data de entrega" disabled></th>
                                     </tr>
                                 </thead>
