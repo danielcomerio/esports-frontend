@@ -215,7 +215,6 @@
             let dateNow = new Date().toLocaleDateString('pt-BR', { timeZone: 'UTC' });
             let nomePedido = fornecedor + ' - ' + dateNow;
             let dataCriacao = dateNow;
-            console.log(valor);
             // REQUISIÇÃO PARA O BACKEND
             $.ajax({
                 type: "POST",
