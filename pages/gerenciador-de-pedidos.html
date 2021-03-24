@@ -172,7 +172,10 @@
             let produto = $("#selectProduto option:selected").text();
             let quantidade = $("#qntdProduto").val();
 
-            let valor = 185.19; // Necessário pegar o valor do produto no banco de dados
+            let valor = $("#selectProduto option:selected").attr('id'); // Necessário pegar o valor do produto no banco de dados
+            valor = parseFloat(valor);
+
+            let valorId = valor * quantidade;
             valor = (valor * quantidade).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
             let dataInsercao = new Date().toLocaleDateString('pt-BR', { timeZone: 'UTC' });
@@ -182,7 +185,7 @@
                     <td>`+ fornecedor + `</td>
                     <td>`+ produto + `</td>
                     <td>`+ quantidade + `</td>
-                    <td>`+ valor + `</td>
+                    <td id=" ` + valorId + `">` + valor + `</td>
                     <td>`+ dataInsercao + `</td>
             </tr>`
             );
@@ -201,41 +204,28 @@
         }
 
         function postPedido() {
+            let fornecedor = $("#selectFornecedor option:selected").text();
             let valor = 0.0;
 
-            let fornecedor = '';
-            let produto = '';
-            let quantidade = 0;
-            let preco = 0.0;
-
             let rows = $('#bodyPedido > tr');
-
-            for (row in rows) {
-                let cols = $(row + ' > td');
-
-                fornecedor = $(cols[0]).html();
-                nome = $(cols[1]).html();
-                quantidade = $(cols[2]).html();
-                preco = $(cols[3]).html();
-
-                valor += parseInt(quantidade) * parseFloat(preco);
+            for (let i = 0; i < rows.length; i++) {
+                let cols = $(rows[i]).find("td");
+                valor += parseFloat($(cols[3]).attr('id'));
             }
             let dateNow = new Date().toLocaleDateString('pt-BR', { timeZone: 'UTC' });
             let nomePedido = fornecedor + ' - ' + dateNow;
             let dataCriacao = dateNow;
-
-            let pedido = {
-                "fornecedor": fornecedor,
-                "nomePedido": nomePedido,
-                "valor": valor.toFixed(2),
-                "dataCriacao": dataCriacao
-            }
-
+            console.log(valor);
             // REQUISIÇÃO PARA O BACKEND
             $.ajax({
                 type: "POST",
                 url: "https://esportes-backend.herokuapp.com/pedidoPedente",
-                data: { "pedido": pedido },
+                data: {
+                    "fornecedor": fornecedor,
+                    "nomePedido": nomePedido,
+                    "valor": valor,
+                    "dataCriacao": dataCriacao
+                },
                 dataType: "json",
                 success: function (success) {
                     alert("Pedido criado com sucesso.");
@@ -355,7 +345,13 @@
                     //alert("Falha no carregamento dos pedidos.");
                 }
             });
+        }
+
+        function onChangeFornecedor() {
             delTablePedido();
+            $('#selectProduto').empty();
+            $('#selectProduto').append('<option class="selectOption" style="display: none;" selected>Produto</option>');
+            getFornecedorProdutos();
         }
 
         function getFornecedorProdutos() {
@@ -378,11 +374,11 @@
         function insertOptions(options, id) {
             if (id == '#selectFornecedor') {
                 for (let i = 0; i < options.length; i++) {
-                    $(id).append('<option class="selectOption" onclick="getFornecedorProdutos()">' + options[i] + '</option>')
+                    $(id).append('<option class="selectOption">' + options[i] + '</option>');
                 }
             } else {
                 for (let i = 0; i < options.length; i++) {
-                    $(id).append('<option class="selectOption">' + options[i] + '</option>')
+                    $(id).append('<option id="' + options[i]['preco'] + '" class="selectOption">' + options[i]['nome'] + '</option>');
                 }
             }
         }
@@ -438,7 +434,7 @@
 
                 <div style="width: 715px; margin: auto;">
                     <div style="float: left; margin-right: 30px;">
-                        <select id="selectFornecedor" class="selectClass">
+                        <select id="selectFornecedor" class="selectClass" onchange="onChangeFornecedor()">
                             <option class="selectOption" style="display: none;" selected>Fornecedor</option>
                         </select>
                     </div>
