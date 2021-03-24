@@ -245,7 +245,7 @@
                         <tr>
                             <td>` + pedidos[i]['fornecedor'] + `</td>
                             <td>` + pedidos[i]['nomePedido'] + `</td>
-                            <td>` + pedidos[i]['valor'] + `</td>
+                            <td>` + pedidos[i]['valor'].toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) + `</td>
                             <td>` + pedidos[i]['dataCriacao'] + `</td>
                         </tr>
                     `);
@@ -258,7 +258,7 @@
                         <tr>
                             <td>` + pedidos[i]['fornecedor'] + `</td>
                             <td>` + pedidos[i]['nomePedido'] + `</td>
-                            <td>` + pedidos[i]['valor'] + `</td>
+                            <td>` + pedidos[i]['valor'].toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) + `</td>
                             <td>` + pedidos[i]['dataPedido'] + `</td>
                             <td>` + pedidos[i]['previsaoChegada'] + `</td>
                         </tr>
@@ -272,7 +272,7 @@
                         <tr>
                             <td>` + pedidos[i]['fornecedor'] + `</td>
                             <td>` + pedidos[i]['nomePedido'] + `</td>
-                            <td>` + pedidos[i]['valor'] + `</td>
+                            <td>` + pedidos[i]['valor'].toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) + `</td>
                             <td>` + pedidos[i]['dataPedido'] + `</td>
                             <td>` + pedidos[i]['dataEntrega'] + `</td>
                         </tr>
